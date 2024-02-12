@@ -30,6 +30,7 @@ export default function ClickableChips({
       {conjugationTypes.map((conjugationType) => {
         return (
           <Chip
+            key={conjugationType}
             label={conjugationType}
             color={conjugationType === selected ? "primary" : "default"}
             variant="outlined"

@@ -3,15 +3,28 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import { dir } from "console";
 
 export default function FlashCard() {
   return (
-    <Card sx={{ maxWidth: 400 }} style={{ marginTop: 30 }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+    <Card
+      sx={{ width: 400, minHeight: 300 }}
+      style={{
+        marginTop: 50,
+        marginBottom: 30,
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <CardActionArea sx={{ width: 400, minHeight: 300 }}>
+        <CardContent
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Typography variant="h3" color="text.secondary">
+            HOLA
           </Typography>
         </CardContent>
       </CardActionArea>

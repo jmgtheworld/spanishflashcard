@@ -26,7 +26,7 @@ export default function ClickableChips({
   ];
 
   return (
-    <Stack direction="row" spacing={1}>
+    <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
       {conjugationTypes.map((conjugationType) => {
         return (
           <Chip

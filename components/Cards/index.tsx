@@ -3,20 +3,50 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import Stack from "@mui/material/Stack";
+
 import BasicTextFields from "../Input";
+import DisabledInputField from "../DisabledInput";
+
+import {
+  areWordsEqualWithoutAccents,
+  compareWordsWithAccents,
+} from "../../app/helpers/language";
 
 export default function FlashCard({
   ready,
   englishVerbs,
   spanishVerbs,
+  numberOfCards,
+  remainingClicks,
+  setRemainingClicks,
+  correct,
+  setCorrect,
 }: {
   ready: boolean;
+  numberOfCards: number;
   englishVerbs: Array<any>;
   spanishVerbs: Array<any>;
+  remainingClicks: number;
+  setRemainingClicks: any;
+  correct: number;
+  setCorrect: any;
 }) {
   const [usedCombinations, setUsedCombinations] = useState(new Set());
   const [currentCombination, setCurrentCombination] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [feedback, setFeedback] = useState("");
   const [answer, setAnswer] = useState("");
+  const [input, setInput] = useState("");
+
+  let spanishPerson = "";
+  let spanishVerb = "";
+  let spanishAnswer = "";
+
+  useEffect(() => {
+    setRemainingClicks(numberOfCards);
+    selectRandomCombination();
+  }, [numberOfCards]);
 
   // Function to select a random verb index
   const selectRandomCombination = () => {
@@ -37,20 +67,43 @@ export default function FlashCard({
     }
   };
 
-  useEffect(() => {
-    selectRandomCombination();
-  }, []); // Empty dependency array to run only once after the initial render
-
   // Function to handle click event to change verb or person
-  const handleCardClick = () => {
-    selectRandomCombination();
-  };
+  const handleCardClick = (input: string, spanishVerb: string) => {
+    if (remainingClicks === 0) {
+      // If remaining clicks is zero, do nothing
+      return setFeedback("Congrats! You've completed all the cards!");
+    }
 
-  let spanishPerson = "";
+    // logic for when card is clicked and when user was wrong and need to progress to next card
+    if (input && feedback) {
+      setRemainingClicks(remainingClicks - 1); // Decrement remaining clicks
+      setInput("");
+      setAnswer("");
+      setFeedback("");
+      setSubmitted(false);
+      return selectRandomCombination();
+    }
+    // logic for when card is clicked and determine if user was right
+    if (input) {
+      setSubmitted(true);
+      if (!areWordsEqualWithoutAccents(input, spanishVerb)) {
+        return setFeedback("Whoops, that was incorrect");
+      } else {
+        if (compareWordsWithAccents(input, spanishVerb).length > 0) {
+          setCorrect(correct + 1);
+          return setFeedback("Watch out for the accents!");
+        } else {
+          setFeedback("You got it!");
+          return setCorrect(correct + 1); // Increment correct answers
+        }
+      }
+    }
+  };
 
   // Display the verb and its conjugation
   const getContent = () => {
     if (!ready) return "HOLA!";
+
     if (currentCombination) {
       const [verbIndex, personIndex] = currentCombination
         .split("-")
@@ -62,41 +115,60 @@ export default function FlashCard({
       );
       const person = personKeys[personIndex];
       spanishPerson = spanishPersonKeys[personIndex];
+      spanishVerb = spanishVerbs[verbIndex].conjugations[spanishPerson];
+      spanishAnswer = spanishPerson + " " + spanishVerb;
+      if (submitted) {
+        return `${spanishPerson} ${spanishVerb}`;
+      }
       return `${person} ${verb.conjugations[person]}`;
     }
   };
 
+  const backGroundColor = () => {
+    if (!ready) return "lightgrey";
+    else if (ready && !submitted) {
+      return "lightblue";
+    } else if (ready && submitted) {
+      return "#e7e2b1";
+    }
+  };
+
   return (
-    <Card
-      sx={{ width: 400, minHeight: 300 }}
-      style={{
-        backgroundColor: ready ? "lightblue" : "lightgrey",
-        marginTop: 50,
-        marginBottom: 30,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <CardActionArea
+    <>
+      <Card
         sx={{ width: 400, minHeight: 300 }}
-        onClick={() => {
-          handleCardClick();
+        style={{
+          backgroundColor: backGroundColor(),
+          marginTop: 40,
+          marginBottom: 30,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        <CardContent
-          style={{
-            display: "flex",
-            justifyContent: "center",
+        <CardActionArea
+          sx={{ width: 400, minHeight: 300 }}
+          onClick={() => {
+            handleCardClick(input, spanishVerb);
           }}
         >
-          <Typography variant="h3" color="text.secondary">
-            {getContent()}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <Typography variant="h5">{spanishPerson}</Typography>
-      <BasicTextFields answer={answer} setAnswer={setAnswer} />
-    </Card>
+          <CardContent
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Typography variant="h3" color="text.secondary">
+              {getContent()}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <Stack direction={{ xs: "column", sm: "row" }} alignItems="center">
+          <Typography variant="h5">{spanishPerson}</Typography>
+          {ready && <BasicTextFields input={input} setInput={setInput} />}
+        </Stack>
+      </Card>
+      {feedback && <Typography variant="h5">{feedback}</Typography>}
+    </>
   );
 }

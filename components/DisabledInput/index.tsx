@@ -2,15 +2,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import React, { useEffect } from "react";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
-import { customTheme } from "./theme";
+import { customTheme } from "./../Input/theme";
 
-export default function BasicTextFields({
-  input,
-  setInput,
-}: {
-  input: string;
-  setInput: (input: string) => void;
-}) {
+export default function DisabledInputField({ answer }: { answer: string }) {
   const outerTheme = useTheme();
 
   return (
@@ -23,13 +17,11 @@ export default function BasicTextFields({
     >
       <ThemeProvider theme={customTheme(outerTheme)}>
         <TextField
-          id="standard-basic"
+          disabled
           size="medium"
+          id="standard-disabled"
+          defaultValue={answer}
           variant="standard"
-          value={input}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setInput(event.target.value);
-          }}
         />
       </ThemeProvider>
     </Box>

@@ -28,14 +28,22 @@ export default function ClickableChips({
   return (
     <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
       {conjugationTypes.map((conjugationType) => {
+        if (
+          conjugationType === "Preterite" ||
+          conjugationType === "Imperfect"
+        ) {
+          return (
+            <Chip
+              key={conjugationType}
+              label={conjugationType}
+              color={conjugationType === selected ? "primary" : "default"}
+              variant="outlined"
+              onClick={() => handleClick(conjugationType)}
+            />
+          );
+        }
         return (
-          <Chip
-            key={conjugationType}
-            label={conjugationType}
-            color={conjugationType === selected ? "primary" : "default"}
-            variant="outlined"
-            onClick={() => handleClick(conjugationType)}
-          />
+          <Chip key={conjugationType} label={conjugationType} color="default" />
         );
       })}
     </Stack>

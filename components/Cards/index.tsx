@@ -6,12 +6,12 @@ import { CardActionArea } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 import BasicTextFields from "../Input";
-import DisabledInputField from "../DisabledInput";
 
 import {
   areWordsEqualWithoutAccents,
   compareWordsWithAccents,
 } from "../../app/helpers/language";
+import LinearWithValueLabel from "../ProgressBar";
 
 export default function FlashCard({
   ready,
@@ -22,6 +22,12 @@ export default function FlashCard({
   setRemainingClicks,
   correct,
   setCorrect,
+  input,
+  setInput,
+  feedback,
+  setFeedback,
+  reset,
+  setReset,
 }: {
   ready: boolean;
   numberOfCards: number;
@@ -31,13 +37,18 @@ export default function FlashCard({
   setRemainingClicks: any;
   correct: number;
   setCorrect: any;
+  input: string;
+  setInput: any;
+  feedback: string;
+  setFeedback: any;
+  reset: boolean;
+  setReset: any;
 }) {
   const [usedCombinations, setUsedCombinations] = useState(new Set());
   const [currentCombination, setCurrentCombination] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [feedback, setFeedback] = useState("");
+
   const [answer, setAnswer] = useState("");
-  const [input, setInput] = useState("");
 
   let spanishPerson = "";
   let spanishVerb = "";
@@ -53,7 +64,7 @@ export default function FlashCard({
     const randomEnglishVerbIndex = Math.floor(
       Math.random() * englishVerbs.length
     );
-    const randomPersonIndex = Math.floor(Math.random() * 6); // 6 persons in total
+    const randomPersonIndex = Math.floor(Math.random() * 5); // 6 persons in total
     const combination = `${randomEnglishVerbIndex}-${randomPersonIndex}`;
 
     // Check if the combination has already been used
@@ -74,6 +85,9 @@ export default function FlashCard({
       return setFeedback("Congrats! You've completed all the cards!");
     }
 
+    if (reset) {
+      setReset(false);
+    }
     // logic for when card is clicked and when user was wrong and need to progress to next card
     if (input && feedback) {
       setRemainingClicks(remainingClicks - 1); // Decrement remaining clicks
@@ -140,7 +154,7 @@ export default function FlashCard({
         style={{
           backgroundColor: backGroundColor(),
           marginTop: 40,
-          marginBottom: 30,
+          marginBottom: 20,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -168,6 +182,11 @@ export default function FlashCard({
           {ready && <BasicTextFields input={input} setInput={setInput} />}
         </Stack>
       </Card>
+      <LinearWithValueLabel
+        numberOfCards={numberOfCards}
+        remainingClicks={remainingClicks}
+        progress={((numberOfCards - remainingClicks) / numberOfCards) * 100}
+      />
       {feedback && <Typography variant="h5">{feedback}</Typography>}
     </>
   );

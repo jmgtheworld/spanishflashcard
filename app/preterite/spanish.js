@@ -7,7 +7,6 @@
 				"tú": "hablaste",
 				"él/ella/usted": "habló",
 				"nosotros/nosotras": "hablamos",
-				"vosotros/vosotras": "hablasteis",
 				"ellos/ellas/ustedes": "hablaron"
 			}
 		},
@@ -18,7 +17,6 @@
 				"tú": "comiste",
 				"él/ella/usted": "comió",
 				"nosotros/nosotras": "comimos",
-				"vosotros/vosotras": "comisteis",
 				"ellos/ellas/ustedes": "comieron"
 			}
 		},
@@ -29,7 +27,6 @@
 				"tú": "viviste",
 				"él/ella/usted": "vivió",
 				"nosotros/nosotras": "vivimos",
-				"vosotros/vosotras": "vivisteis",
 				"ellos/ellas/ustedes": "vivieron"
 			}
 		}

@@ -7,7 +7,6 @@ const english = {
                 "you": "spoke",
                 "he/she/it": "spoke",
                 "we": "spoke",
-                "you all": "spoke",
                 "they": "spoke"
             }
         },
@@ -18,7 +17,6 @@ const english = {
                 "you": "ate",
                 "he/she/it": "ate",
                 "we": "ate",
-                "you all": "ate",
                 "they": "ate"
             }
         },
@@ -29,7 +27,6 @@ const english = {
                 "you": "lived",
                 "he/she/it": "lived",
                 "we": "lived",
-                "you all": "lived",
                 "they": "lived"
             }
         }

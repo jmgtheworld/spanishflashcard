@@ -1,16 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Stack from "@mui/material/Stack";
 import FlashCard from "../components/Cards";
 import ClickableChips from "../components/Chip";
 import BasicSelect from "../components/Select";
 import IconLabelButtons from "@/components/Button";
-import LinearProgressWithLabel from "@/components/ProgressBar";
 
-import english from "../app/preterite/english.js";
-import spanish from "../app/preterite/spanish.js";
+import Image from "next/image";
 
 import CelebrationIcon from "@mui/icons-material/Celebration";
+import CircularProgress from "@mui/material/CircularProgress";
+import LinearWithValueLabel from ".././components/ProgressBar";
+
+import preteriteEnglish from "../app/preterite/english.js";
+import preteriteSpanish from "../app/preterite/spanish.js";
 
 export default function Home() {
   const [conjugationType, setConjugationType] = useState("Preterite");
@@ -20,7 +23,16 @@ export default function Home() {
   const [remainingClicks, setRemainingClicks] = useState(value);
   const [correct, setCorrect] = useState(0);
   const [feedback, setFeedback] = useState("");
-  const [reset, setReset] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [englishVerb, setEnglishVerb] = useState([]);
+  const [spanishVerb, setSpanishVerb] = useState([]);
+  const [usedCombinations, setUsedCombinations] = useState(new Set());
+  const [currentCombination, setCurrentCombination] = useState("");
+
+  useEffect(() => {
+    setEnglishVerb(preteriteEnglish.verbs);
+    setSpanishVerb(preteriteSpanish.verbs);
+  }, []);
 
   return (
     <main
@@ -31,17 +43,30 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <h1> Practice Your Spanish Verbs</h1>
+      <Stack direction="row" spacing={2} marginTop={5}>
+        <Image
+          src="/spain.png"
+          width={30}
+          height={30}
+          alt="spanish flag"
+          style={{ marginTop: 5 }}
+        />
+        <h1> Practice Your Spanish Verbs</h1>
+      </Stack>
+
       <h2 style={{ marginTop: 35 }}> {conjugationType} Tense </h2>
-      <ClickableChips setConjugationType={setConjugationType} />
+      <ClickableChips
+        ready={ready}
+        setConjugationType={setConjugationType}
+        setEnglishVerb={setEnglishVerb}
+        setSpanishVerb={setSpanishVerb}
+        setUsedCombinations={setUsedCombinations}
+      />
       {!ready ? (
-        <h2 style={{ marginTop: 50 }}>
-          # of Cards:
-          {value}
-        </h2>
+        <h2 style={{ marginTop: 50 }}># of Cards: {value}</h2>
       ) : (
         <Stack direction="row" spacing={2} marginTop={5} alignItems="center">
-          <h2># of Cards left : {remainingClicks}</h2>
+          <h2># of Cards left: {remainingClicks}</h2>
           <IconLabelButtons
             icon="RestartAltIcon"
             content="Reset"
@@ -50,8 +75,16 @@ export default function Home() {
               setCorrect(0);
               setInput("");
               setFeedback("");
-              setReset(true);
               setReady(false);
+              setSubmitted(false);
+              // reset combination
+              setUsedCombinations(new Set());
+              const randomEnglishVerbIndex = Math.floor(
+                Math.random() * englishVerb.length
+              );
+              const randomPersonIndex = Math.floor(Math.random() * 5); // 6 persons in total
+              const combination = `${randomEnglishVerbIndex}-${randomPersonIndex}`;
+              setCurrentCombination(combination);
             }}
           />
         </Stack>
@@ -68,27 +101,50 @@ export default function Home() {
         </Stack>
       )}
       {remainingClicks === 0 ? (
-        <Stack direction="column" spacing={2} alignItems="center">
+        <Stack direction="column" mt={5} spacing={2} alignItems="center">
           <h3>Your score was {(correct / value) * 100}%</h3>
           <CelebrationIcon color="success" fontSize="large" />
         </Stack>
       ) : (
         <Stack direction="column" spacing={2} alignItems="center">
-          <FlashCard
+          {englishVerb.length > 0 && spanishVerb.length > 0 ? (
+            <FlashCard
+              numberOfCards={value}
+              setNumberOfCards={setValue}
+              englishVerbs={englishVerb}
+              spanishVerbs={spanishVerb}
+              ready={ready}
+              remainingClicks={remainingClicks}
+              setRemainingClicks={setRemainingClicks}
+              correct={correct}
+              setCorrect={setCorrect}
+              input={input}
+              setInput={setInput}
+              feedback={feedback}
+              setFeedback={setFeedback}
+              submitted={submitted}
+              setSubmitted={setSubmitted}
+              usedCombinations={usedCombinations}
+              setUsedCombinations={setUsedCombinations}
+              currentCombination={currentCombination}
+              setCurrentCombination={setCurrentCombination}
+            />
+          ) : (
+            <Stack
+              direction="column"
+              spacing={2}
+              alignItems="center"
+              style={{ marginTop: 50 }}
+            >
+              <h3 style={{ marginBottom: 10 }}>Loading...</h3>
+              <CircularProgress color="inherit" style={{ marginBottom: 20 }} />
+            </Stack>
+          )}
+
+          <LinearWithValueLabel
             numberOfCards={value}
-            englishVerbs={english.verbs}
-            spanishVerbs={spanish.verbs}
-            ready={ready}
             remainingClicks={remainingClicks}
-            setRemainingClicks={setRemainingClicks}
-            correct={correct}
-            setCorrect={setCorrect}
-            input={input}
-            setInput={setInput}
-            feedback={feedback}
-            setFeedback={setFeedback}
-            reset={reset}
-            setReset={setReset}
+            progress={((value - remainingClicks) / value) * 100}
           />
         </Stack>
       )}

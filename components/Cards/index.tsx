@@ -4,6 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
 
 import BasicTextFields from "../Input";
 
@@ -11,7 +13,6 @@ import {
   areWordsEqualWithoutAccents,
   compareWordsWithAccents,
 } from "../../app/helpers/language";
-import LinearWithValueLabel from "../ProgressBar";
 
 export default function FlashCard({
   ready,
@@ -26,11 +27,16 @@ export default function FlashCard({
   setInput,
   feedback,
   setFeedback,
-  reset,
-  setReset,
+  submitted,
+  setSubmitted,
+  usedCombinations,
+  setUsedCombinations,
+  currentCombination,
+  setCurrentCombination,
 }: {
   ready: boolean;
   numberOfCards: number;
+  setNumberOfCards: any;
   englishVerbs: Array<any>;
   spanishVerbs: Array<any>;
   remainingClicks: number;
@@ -41,13 +47,13 @@ export default function FlashCard({
   setInput: any;
   feedback: string;
   setFeedback: any;
-  reset: boolean;
-  setReset: any;
+  submitted: boolean;
+  setSubmitted: any;
+  usedCombinations: any;
+  setUsedCombinations: any;
+  currentCombination: string;
+  setCurrentCombination: any;
 }) {
-  const [usedCombinations, setUsedCombinations] = useState(new Set());
-  const [currentCombination, setCurrentCombination] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
   const [answer, setAnswer] = useState("");
 
   let spanishPerson = "";
@@ -56,11 +62,15 @@ export default function FlashCard({
 
   useEffect(() => {
     setRemainingClicks(numberOfCards);
-    selectRandomCombination();
   }, [numberOfCards]);
+
+  useEffect(() => {
+    selectRandomCombination();
+  }, [englishVerbs]);
 
   // Function to select a random verb index
   const selectRandomCombination = () => {
+    setSubmitted(false);
     const randomEnglishVerbIndex = Math.floor(
       Math.random() * englishVerbs.length
     );
@@ -85,9 +95,6 @@ export default function FlashCard({
       return setFeedback("Congrats! You've completed all the cards!");
     }
 
-    if (reset) {
-      setReset(false);
-    }
     // logic for when card is clicked and when user was wrong and need to progress to next card
     if (input && feedback) {
       setRemainingClicks(remainingClicks - 1); // Decrement remaining clicks
@@ -123,6 +130,7 @@ export default function FlashCard({
         .split("-")
         .map(Number);
       const verb = englishVerbs[verbIndex];
+
       const personKeys = Object.keys(verb.conjugations);
       const spanishPersonKeys = Object.keys(
         spanishVerbs[verbIndex].conjugations
@@ -132,9 +140,29 @@ export default function FlashCard({
       spanishVerb = spanishVerbs[verbIndex].conjugations[spanishPerson];
       spanishAnswer = spanishPerson + " " + spanishVerb;
       if (submitted) {
-        return `${spanishPerson} ${spanishVerb}`;
+        return `${spanishPerson}`;
       }
-      return `${person} ${verb.conjugations[person]}`;
+      return `${verb.conjugations[person]}`;
+    }
+  };
+
+  // Display the verb and its conjugation
+  const getAnswer = () => {
+    if (!ready) return "";
+
+    if (currentCombination) {
+      const [verbIndex, personIndex] = currentCombination
+        .split("-")
+        .map(Number);
+      const spanishPersonKeys = Object.keys(
+        spanishVerbs[verbIndex].conjugations
+      );
+      spanishPerson = spanishPersonKeys[personIndex];
+      spanishVerb = spanishVerbs[verbIndex].conjugations[spanishPerson];
+      spanishAnswer = spanishPerson + " " + spanishVerb;
+      if (submitted) {
+        return `${spanishVerb}`;
+      }
     }
   };
 
@@ -154,7 +182,7 @@ export default function FlashCard({
         style={{
           backgroundColor: backGroundColor(),
           marginTop: 40,
-          marginBottom: 20,
+          marginBottom: 10,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -169,12 +197,40 @@ export default function FlashCard({
           <CardContent
             style={{
               display: "flex",
+              alignContent: "center",
               justifyContent: "center",
+              padding: 10,
             }}
           >
-            <Typography variant="h3" color="text.secondary">
-              {getContent()}
-            </Typography>
+            <Stack
+              direction="column"
+              spacing={2}
+              alignItems="flexStart"
+              justifyContent="center"
+            >
+              {submitted && ready && (
+                <div style={{ marginBottom: "25px" }}>
+                  <Typography variant="h4" color="text.secondary">
+                    Answer:
+                  </Typography>
+                </div>
+              )}
+              <Stack
+                direction="column"
+                spacing={2}
+                alignItems="flexStart"
+                justifyContent="center"
+              >
+                <Typography variant="h4" color="text.secondary" mr={1}>
+                  {englishVerbs && spanishVerbs
+                    ? getContent()
+                    : "Whoops, try resetting!"}
+                </Typography>
+                <Typography variant="h4" color="black">
+                  {englishVerbs && spanishVerbs ? getAnswer() : ""}
+                </Typography>
+              </Stack>
+            </Stack>
           </CardContent>
         </CardActionArea>
         <Stack direction={{ xs: "column", sm: "row" }} alignItems="center">
@@ -182,12 +238,16 @@ export default function FlashCard({
           {ready && <BasicTextFields input={input} setInput={setInput} />}
         </Stack>
       </Card>
-      <LinearWithValueLabel
-        numberOfCards={numberOfCards}
-        remainingClicks={remainingClicks}
-        progress={((numberOfCards - remainingClicks) / numberOfCards) * 100}
-      />
-      {feedback && <Typography variant="h5">{feedback}</Typography>}
+      {feedback && (
+        <Stack direction="row" alignItems="center" spacing={1}>
+          {feedback === "Whoops, that was incorrect" ? (
+            <CloseIcon sx={{ color: "red", fontSize: 25 }} />
+          ) : (
+            <CheckIcon sx={{ color: "green", fontSize: 25 }} />
+          )}
+          <Typography variant="h5">{feedback}</Typography>
+        </Stack>
+      )}
     </>
   );
 }

@@ -9,11 +9,11 @@ export default function BasicSelect({
   value,
   setValue,
 }: {
-  value: string;
-  setValue: (value: string) => void;
+  value: number;
+  setValue: (value: number) => void;
 }) {
   const handleChange = (event: SelectChangeEvent) => {
-    setValue(event.target.value as string);
+    setValue(Number(event.target.value));
   };
 
   return (
@@ -23,7 +23,7 @@ export default function BasicSelect({
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={value}
+          value={value.toString()}
           label="# of Cards"
           onChange={handleChange}
         >

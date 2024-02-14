@@ -3,11 +3,11 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
-import preteriteEnglish from "../../app/preterite/english.js";
-import preteriteSpanish from "../../app/preterite/spanish.js";
+import preteriteEnglish from "../verbs/preterite/english.js";
+import preteriteSpanish from "../verbs/preterite/spanish.js";
 
-import imperfectEnglish from "../../app/imperfect/english.js";
-import imperfectSpanish from "../../app/imperfect/spanish.js";
+import imperfectEnglish from "../verbs/imperfect/english.js";
+import imperfectSpanish from "../verbs/imperfect/spanish.js";
 
 export default function ClickableChips({
   setConjugationType,

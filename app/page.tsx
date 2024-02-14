@@ -10,10 +10,10 @@ import Image from "next/image";
 
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import CircularProgress from "@mui/material/CircularProgress";
-import LinearWithValueLabel from ".././components/ProgressBar";
+import LinearWithValueLabel from "../components/ProgressBar";
 
-import preteriteEnglish from "../app/preterite/english.js";
-import preteriteSpanish from "../app/preterite/spanish.js";
+import preteriteEnglish from "../components/verbs/preterite/english.js";
+import preteriteSpanish from "../components/verbs/preterite/spanish.js";
 
 export default function Home() {
   const [conjugationType, setConjugationType] = useState("Preterite");

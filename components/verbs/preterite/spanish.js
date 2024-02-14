@@ -331,13 +331,13 @@
 				}
 			},
 			{
-				"infinitive": "conducir",
+				"infinitive": "manejar",
 				"conjugations": {
-					"yo": "conduje",
-					"tú": "condujiste",
-					"él/ella/usted": "condujo",
-					"nosotros/nosotras": "condujimos",
-					"ellos/ellas/ustedes": "condujeron"
+					"yo": "manejé",
+					"tú": "manejaste",
+					"él/ella/usted": "manejó",
+					"nosotros/nosotras": "manejamos",
+					"ellos/ellas/ustedes": "manejaron"
 				}
 			},
 			{

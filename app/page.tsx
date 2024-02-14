@@ -72,7 +72,7 @@ export default function Home() {
           width={30}
           height={30}
           alt="spanish flag"
-          style={{ marginTop: 5 }}
+          style={{ marginTop: 5, marginLeft: 30 }}
         />
         <h1> Practice Your Spanish Verbs</h1>
       </Stack>

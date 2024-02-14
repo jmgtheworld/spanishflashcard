@@ -1,8 +1,8 @@
-import preteriteEnglish from "../app/preterite/english.js";
-import preteriteSpanish from "../app/preterite/spanish.js";
+import preteriteEnglish from "../../components/verbs/preterite/english.js";
+import preteriteSpanish from "../../components/verbs/preterite/spanish.js";
 
-import imperfectEnglish from "../app/imperfect/english.js";
-import imperfectSpanish from "../app/imperfect/spanish.js";
+import imperfectEnglish from "../../components/verbs/imperfect/english.js";
+import imperfectSpanish from "../../components/verbs/imperfect/spanish.js";
 
 export default function chooseTense(userChoice) {
   if (userChoice === "Preterite") {

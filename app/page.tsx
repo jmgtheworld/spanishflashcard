@@ -66,18 +66,12 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Stack direction="row" spacing={2} marginTop={5}>
-        <Image
-          src="/spain.png"
-          width={30}
-          height={30}
-          alt="spanish flag"
-          style={{ marginTop: 5, marginLeft: 30 }}
-        />
-        <h1> Practice Your Spanish Verbs</h1>
+      <Stack direction="row" spacing={2} marginTop={5} alignItems="center">
+        <Image src="/spain.png" width={30} height={30} alt="spanish flag" />
+        <h1 style={{ fontSize: 20 }}> Practice Your Spanish Verbs</h1>
       </Stack>
 
-      <h2 style={{ marginTop: 35 }}> {conjugationType} Tense </h2>
+      <h4 style={{ marginTop: 35 }}> {conjugationType} Tense </h4>
       <ClickableChips
         ready={ready}
         setConjugationType={setConjugationType}
@@ -86,7 +80,7 @@ export default function Home() {
         setUsedCombinations={setUsedCombinations}
       />
       {!ready ? (
-        <h2 style={{ marginTop: 50 }}># of Cards: {value}</h2>
+        <h4 style={{ marginTop: 50 }}># of Cards: {value}</h4>
       ) : (
         <Stack direction="row" spacing={2} marginTop={5} alignItems="center">
           <h2># of Cards left: {remainingClicks}</h2>

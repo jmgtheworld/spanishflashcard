@@ -24,8 +24,31 @@ export default function Home() {
   const [correct, setCorrect] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [englishVerb, setEnglishVerb] = useState([]);
-  const [spanishVerb, setSpanishVerb] = useState([]);
+  const [englishVerb, setEnglishVerb] = useState<
+    {
+      infinitive: string;
+      conjugations: {
+        yo: string;
+        tú: string;
+        "él/ella/usted": string;
+        "nosotros/nosotras": string;
+        "ellos/ellas/ustedes": string;
+      };
+    }[]
+  >([]);
+  const [spanishVerb, setSpanishVerb] = useState<
+    {
+      infinitive: string;
+      conjugations: {
+        yo: string;
+        tú: string;
+        "él/ella/usted": string;
+        "nosotros/nosotras": string;
+        "ellos/ellas/ustedes": string;
+      };
+    }[]
+  >([]);
+
   const [usedCombinations, setUsedCombinations] = useState(new Set());
   const [currentCombination, setCurrentCombination] = useState("");
 

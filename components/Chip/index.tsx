@@ -17,8 +17,8 @@ export default function ClickableChips({
   setUsedCombinations,
 }: {
   setConjugationType: (conjugationType: string) => void;
-  setEnglishVerb: (englishVerb: Array<any>) => void;
-  setSpanishVerb: (spanishVerb: Array<any>) => void;
+  setEnglishVerb: any;
+  setSpanishVerb: any;
   ready: boolean;
   setUsedCombinations: any;
 }) {

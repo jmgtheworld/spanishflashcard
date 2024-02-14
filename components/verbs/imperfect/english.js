@@ -33,11 +33,11 @@ const imperfectEnglish = {
     {
       "infinitive": "be",
       "conjugations": {
-        "yo": "I was",
-        "tú": "You were",
-        "él/ella/usted": "He/she was",
-        "nosotros/nosotras": "We were",
-        "ellos/ellas/ustedes": "They were"
+        "yo": "(characteristic) I was",
+        "tú": "(characteristic)  You were",
+        "él/ella/usted": "(characteristic) He/she was",
+        "nosotros/nosotras": "(characteristic) We were",
+        "ellos/ellas/ustedes": "(characteristic) They were"
       }
     },
     {

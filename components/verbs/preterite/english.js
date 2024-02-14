@@ -33,11 +33,11 @@ const preteriteEnglish = {
         {
             "infinitive": "to be",
             "conjugations": {
-                "yo": "(characterstic) I was",
-                "tú": "(characterstic) you were",
-                "él/ella/usted": "(characterstic) he/she/you was/were",
-                "nosotros/nosotras": "(characterstic)  we were",
-                "ellos/ellas/ustedes": "(characterstic) they were"
+                "yo": "(characteristic) I was",
+                "tú": "(characteristic) you were",
+                "él/ella/usted": "(characteristic) he/she/you was/were",
+                "nosotros/nosotras": "(characteristic)  we were",
+                "ellos/ellas/ustedes": "(characteristic) they were"
             }
         },
         {

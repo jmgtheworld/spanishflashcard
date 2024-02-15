@@ -6,6 +6,7 @@ import { CardActionArea } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
+import LoopIcon from "@mui/icons-material/Loop";
 
 import BasicTextFields from "../Input";
 
@@ -55,6 +56,7 @@ export default function FlashCard({
   setCurrentCombination: any;
 }) {
   const [answer, setAnswer] = useState("");
+  const [revealedAnswer, setRevealedAnswer] = useState(false);
 
   let spanishPerson = "";
   let spanishVerb = "";
@@ -90,13 +92,18 @@ export default function FlashCard({
 
   // Function to handle click event to change verb or person
   const handleCardClick = (input: string, spanishVerb: string) => {
+    setRevealedAnswer(false);
+    console.log("revealedAnswer", revealedAnswer);
     if (remainingClicks === 0) {
       // If remaining clicks is zero, do nothing
       return setFeedback("Congrats! You've completed all the cards!");
     }
 
     // logic for when card is clicked and when user was wrong and need to progress to next card
-    if (input && feedback) {
+    if (
+      (input && feedback) ||
+      (feedback === "You'll get it next time!" && !input)
+    ) {
       setRemainingClicks(remainingClicks - 1); // Decrement remaining clicks
       setInput("");
       setAnswer("");
@@ -107,6 +114,7 @@ export default function FlashCard({
     // logic for when card is clicked and determine if user was right
     if (input) {
       setSubmitted(true);
+
       if (!areWordsEqualWithoutAccents(input, spanishVerb)) {
         return setFeedback("Whoops, that was incorrect");
       } else {
@@ -175,6 +183,12 @@ export default function FlashCard({
     }
   };
 
+  const revealAnswer = () => {
+    setSubmitted(true);
+    setRevealedAnswer(true);
+    return setFeedback("You'll get it next time!");
+  };
+
   return (
     <>
       <Card
@@ -188,6 +202,28 @@ export default function FlashCard({
           alignItems: "center",
         }}
       >
+        {!revealedAnswer && (
+          <CardActionArea
+            onClick={() => {
+              revealAnswer();
+            }}
+          >
+            <CardContent>
+              <Stack
+                spacing={1}
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <LoopIcon sx={{ color: "red" }}></LoopIcon>
+                <Typography variant="h6" color="red">
+                  Reveal Answer
+                </Typography>
+              </Stack>
+            </CardContent>
+          </CardActionArea>
+        )}
+
         <CardActionArea
           sx={{ width: 400, minHeight: 300 }}
           onClick={() => {
@@ -226,9 +262,15 @@ export default function FlashCard({
                     ? getContent()
                     : "Whoops, try resetting!"}
                 </Typography>
-                <Typography variant="h4" color="black">
-                  {englishVerbs && spanishVerbs ? getAnswer() : ""}
-                </Typography>
+                {revealedAnswer ? (
+                  <Typography variant="h4" color="red">
+                    {englishVerbs && spanishVerbs ? getAnswer() : ""}
+                  </Typography>
+                ) : (
+                  <Typography variant="h4" color="black">
+                    {englishVerbs && spanishVerbs ? getAnswer() : ""}
+                  </Typography>
+                )}
               </Stack>
             </Stack>
           </CardContent>
@@ -240,7 +282,8 @@ export default function FlashCard({
       </Card>
       {feedback && (
         <Stack direction="row" alignItems="center" spacing={1}>
-          {feedback === "Whoops, that was incorrect" ? (
+          {feedback === "Whoops, that was incorrect" ||
+          "You'll get it next time!" ? (
             <CloseIcon sx={{ color: "red", fontSize: 25 }} />
           ) : (
             <CheckIcon sx={{ color: "green", fontSize: 25 }} />

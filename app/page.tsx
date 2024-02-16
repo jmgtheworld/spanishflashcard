@@ -10,6 +10,9 @@ import Image from "next/image";
 
 import CelebrationIcon from "@mui/icons-material/Celebration";
 import CircularProgress from "@mui/material/CircularProgress";
+import QuizIcon from "@mui/icons-material/Quiz";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+
 import LinearWithValueLabel from "../components/ProgressBar";
 
 import preteriteEnglish from "../components/verbs/preterite/english.js";
@@ -66,27 +69,40 @@ export default function Home() {
         alignItems: "center",
       }}
     >
-      <Stack direction="row" spacing={2} marginTop={5} alignItems="center">
+      <Stack direction="row" spacing={2} marginTop={3} alignItems="center">
         <Image src="/spain.png" width={30} height={30} alt="spanish flag" />
         <h1 style={{ fontSize: 20 }}> Practice Your Spanish Verbs</h1>
       </Stack>
       <Stack
         direction="column"
-        style={{ marginLeft: 10, marginBottom: 30 }}
-        spacing={1}
+        style={{ marginLeft: 10, marginBottom: 80 }}
+        spacing={2}
         marginTop={5}
         alignItems="flex-start"
       >
-        <h2 style={{ fontSize: 16 }}>How to play </h2>
-        <p> 1. Type in your answer </p>
-        <p> 2. Tap on card to check answer </p>
-        <p> 3. Tap once more to continue to next verb</p>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <QuizIcon />
+          <h2 style={{ fontSize: 16 }}>How to play </h2>
+        </Stack>
+        <p> 1. Choose the type of tense/# of questions </p>
+        <p> 2. Tap on Vamos! to start playing</p>
+        <p> 3. Type in your answer </p>
+        <p> 4. Tap on card to check answer </p>
+        <p> 5. Tap once more to continue to the next verb</p>
         <p>
-          {" "}
-          4. If you don&apos;t know the answer, tap the reveal answer on the top
+          6. If you don&apos;t know the answer, tap "Reveal Answer" at the top
+          of the card
         </p>
+        <Stack direction="row" spacing={1}>
+          <p style={{ fontWeight: "bold" }}>TIP:</p>
+          <p> Reset the game to change the type of tense/# of questions</p>
+        </Stack>
       </Stack>
-      <h4 style={{ marginTop: 35 }}> {conjugationType} Tense </h4>
+      <Stack direction="row" spacing={1} marginBottom={5} marginTop={0}>
+        <AssignmentTurnedInIcon />
+        <h4> Selected tense: </h4>
+        <h4 style={{ color: "#a6122b" }}> {conjugationType} Tense </h4>
+      </Stack>
       <ClickableChips
         ready={ready}
         setConjugationType={setConjugationType}
@@ -95,7 +111,10 @@ export default function Home() {
         setUsedCombinations={setUsedCombinations}
       />
       {!ready ? (
-        <h4 style={{ marginTop: 50 }}># of Cards: {value}</h4>
+        <Stack direction="row" spacing={1} marginTop={5} marginBottom={5}>
+          <h4># of Cards: </h4>
+          <h4 style={{ color: "#a6122b" }}> {value}</h4>
+        </Stack>
       ) : (
         <Stack direction="row" spacing={2} marginTop={5} alignItems="center">
           <h2># of Cards left: {remainingClicks}</h2>

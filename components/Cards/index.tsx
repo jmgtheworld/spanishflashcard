@@ -304,16 +304,17 @@ export default function FlashCard({
           {ready && <BasicTextFields input={input} setInput={setInput} />}
         </Stack>
       </Card>
-
-      <Stack direction="row" alignItems="center" spacing={1}>
-        {feedback === "Whoops, that was incorrect" ||
-        feedback === "You'll get it next time!" ? (
-          <CloseIcon sx={{ color: "red", fontSize: 25 }} />
-        ) : (
-          <CheckIcon sx={{ color: "green", fontSize: 25 }} />
-        )}
-        <Typography variant="h5">{feedback}</Typography>
-      </Stack>
+      {feedback && (
+        <Stack direction="row" alignItems="center" spacing={1}>
+          {feedback === "Whoops, that was incorrect" ||
+          feedback === "You'll get it next time!" ? (
+            <CloseIcon sx={{ color: "red", fontSize: 25 }} />
+          ) : (
+            <CheckIcon sx={{ color: "green", fontSize: 25 }} />
+          )}
+          <Typography variant="h5">{feedback}</Typography>
+        </Stack>
+      )}
     </>
   );
 }

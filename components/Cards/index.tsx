@@ -301,7 +301,14 @@ export default function FlashCard({
         </CardActionArea>
         <Stack direction={{ xs: "column", sm: "row" }} alignItems="center">
           <Typography variant="h5">{spanishPerson}</Typography>
-          {ready && <BasicTextFields input={input} setInput={setInput} />}
+          {ready && (
+            <BasicTextFields
+              input={input}
+              setInput={setInput}
+              handleCardClick={handleCardClick}
+              spanishVerb={spanishVerb}
+            />
+          )}
         </Stack>
       </Card>
       {feedback && (

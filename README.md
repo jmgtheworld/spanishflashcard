@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About this App
+
+This app is intended for people to learn spanish verb conjugations. 
+
+![Screenshot 2024-02-15 at 8 40 20 PM](https://github.com/jmgtheworld/spanishflashcard/assets/58899302/0e8a263e-4658-4a96-87d0-35713bdfdfbb)
+
 ## Getting Started
 
 First, run the development server:

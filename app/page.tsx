@@ -84,18 +84,15 @@ export default function Home() {
           <QuizIcon />
           <h2 style={{ fontSize: 16 }}>How to play </h2>
         </Stack>
-        <p> 1. Choose the type of tense/# of questions </p>
-        <p> 2. Tap on Vamos! to start playing</p>
-        <p> 3. Type in your answer </p>
-        <p> 4. Tap on card to check answer </p>
-        <p> 5. Tap once more to continue to the next verb</p>
-        <p>
-          6. If you don&apos;t know the answer, tap "Reveal Answer" at the top
-          of the card
-        </p>
+        <p> 1. Select the tense and number of questions </p>
+        <p> 2. Begin by tapping "Vamos!" to initiate the game</p>
+        <p> 3. Input your answer </p>
+        <p> 4. Tap the card to verify your answer</p>
+        <p> 5. Tap again to proceed to the next verb</p>
+        <p>6. If you're unsure of the answer, tap &apos;Reveal Answer&apos;</p>
         <Stack direction="row" spacing={1}>
           <p style={{ fontWeight: "bold" }}>TIP:</p>
-          <p> Reset the game to change the type of tense/# of questions</p>
+          <p> To change the tense or number of questions, reset the game </p>
         </Stack>
       </Stack>
       <Stack direction="row" spacing={1} marginBottom={5} marginTop={0}>

@@ -89,7 +89,9 @@ export default function Home() {
         <p> 3. Input your answer </p>
         <p> 4. Tap the card to verify your answer</p>
         <p> 5. Tap again to proceed to the next verb</p>
-        <p>6. If you're unsure of the answer, tap &quot;Reveal Answer&quot;</p>
+        <p>
+          6. If you&apos;re unsure of the answer, tap &quot;Reveal Answer&quot;
+        </p>
         <Stack direction="row" spacing={1}>
           <p style={{ fontWeight: "bold" }}>TIP:</p>
           <p> To change the tense or number of questions, reset the game </p>

@@ -70,7 +70,22 @@ export default function Home() {
         <Image src="/spain.png" width={30} height={30} alt="spanish flag" />
         <h1 style={{ fontSize: 20 }}> Practice Your Spanish Verbs</h1>
       </Stack>
-
+      <Stack
+        direction="column"
+        style={{ marginLeft: 10, marginBottom: 30 }}
+        spacing={1}
+        marginTop={5}
+        alignItems="flex-start"
+      >
+        <h2 style={{ fontSize: 16 }}>How to play </h2>
+        <p> 1. Type in your answer </p>
+        <p> 2. Tap on card to check answer </p>
+        <p> 3. Tap once more to continue to next verb</p>
+        <p>
+          {" "}
+          4. If you don't know the answer, tap the reveal answer on the top
+        </p>
+      </Stack>
       <h4 style={{ marginTop: 35 }}> {conjugationType} Tense </h4>
       <ClickableChips
         ready={ready}

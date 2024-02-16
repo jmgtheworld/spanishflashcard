@@ -57,6 +57,7 @@ export default function FlashCard({
 }) {
   const [answer, setAnswer] = useState("");
   const [revealedAnswer, setRevealedAnswer] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   let spanishPerson = "";
   let spanishVerb = "";
@@ -93,7 +94,6 @@ export default function FlashCard({
   // Function to handle click event to change verb or person
   const handleCardClick = (input: string, spanishVerb: string) => {
     setRevealedAnswer(false);
-    console.log("revealedAnswer", revealedAnswer);
     if (remainingClicks === 0) {
       // If remaining clicks is zero, do nothing
       return setFeedback("Congrats! You've completed all the cards!");
@@ -114,7 +114,6 @@ export default function FlashCard({
     // logic for when card is clicked and determine if user was right
     if (input) {
       setSubmitted(true);
-
       if (!areWordsEqualWithoutAccents(input, spanishVerb)) {
         return setFeedback("Whoops, that was incorrect");
       } else {
@@ -184,9 +183,15 @@ export default function FlashCard({
   };
 
   const revealAnswer = () => {
-    setSubmitted(true);
-    setRevealedAnswer(true);
-    return setFeedback("You'll get it next time!");
+    if (ready) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setSubmitted(true);
+        setRevealedAnswer(true);
+        setIsAnimating(false);
+        return setFeedback("You'll get it next time!");
+      }, 300);
+    }
   };
 
   return (
@@ -204,6 +209,9 @@ export default function FlashCard({
       >
         {!revealedAnswer && (
           <CardActionArea
+            sx={{
+              backgroundColor: "#e7e2b1",
+            }}
             onClick={() => {
               revealAnswer();
             }}
@@ -215,8 +223,24 @@ export default function FlashCard({
                 alignItems="center"
                 justifyContent="center"
               >
-                <LoopIcon sx={{ color: "red" }}></LoopIcon>
-                <Typography variant="h6" color="red">
+                <LoopIcon
+                  sx={{
+                    color: "#8b0000",
+                    fontSize: 22,
+                    animation: isAnimating
+                      ? "spin 0.5s linear infinite"
+                      : "none",
+                    "@keyframes spin": {
+                      "0%": {
+                        transform: "rotate(360deg)",
+                      },
+                      "100%": {
+                        transform: "rotate(0deg)",
+                      },
+                    },
+                  }}
+                />
+                <Typography variant="h6" color="#8b0000">
                   Reveal Answer
                 </Typography>
               </Stack>

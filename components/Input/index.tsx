@@ -28,6 +28,7 @@ export default function BasicTextFields({
           variant="standard"
           value={input}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            event.preventDefault();
             setInput(event.target.value);
           }}
         />

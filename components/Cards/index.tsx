@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import LoopIcon from "@mui/icons-material/Loop";
+import Button from "@mui/material/Button";
 
 import BasicTextFields from "../Input";
 
@@ -208,7 +209,10 @@ export default function FlashCard({
         }}
       >
         <CardActionArea
-          sx={{ width: 400, minHeight: 300 }}
+          sx={{
+            width: 400,
+            minHeight: 300,
+          }}
           onClick={() => {
             handleCardClick(input, spanishVerb);
           }}
@@ -258,10 +262,10 @@ export default function FlashCard({
             </Stack>
           </CardContent>
         </CardActionArea>
-        {!revealedAnswer && ready && (
-          <CardActionArea
+        {!revealedAnswer && ready && !submitted && (
+          <Button
             sx={{
-              backgroundColor: "#67B7D1",
+              backgroundColor: "lightblue",
             }}
             onClick={() => {
               revealAnswer();
@@ -276,8 +280,8 @@ export default function FlashCard({
               >
                 <LoopIcon
                   sx={{
-                    color: "#8b0000",
-                    fontSize: 22,
+                    color: "red",
+                    fontSize: 25,
                     animation: isAnimating
                       ? "spin 0.5s linear infinite"
                       : "none",
@@ -291,12 +295,16 @@ export default function FlashCard({
                     },
                   }}
                 />
-                <Typography variant="h6" color="#8b0000">
+                <Typography
+                  variant="h6"
+                  color="red"
+                  sx={{ fontSize: "20px", fontWeight: "500" }}
+                >
                   Reveal Answer
                 </Typography>
               </Stack>
             </CardContent>
-          </CardActionArea>
+          </Button>
         )}
 
         <Stack direction={{ xs: "column", sm: "row" }} alignItems="center">

@@ -207,7 +207,7 @@ export default function FlashCard({
           alignItems: "center",
         }}
       >
-        {!revealedAnswer && (
+        {!revealedAnswer && ready && (
           <CardActionArea
             sx={{
               backgroundColor: "#e7e2b1",

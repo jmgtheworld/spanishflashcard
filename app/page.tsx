@@ -85,11 +85,11 @@ export default function Home() {
           <h2 style={{ fontSize: 16 }}>How to play </h2>
         </Stack>
         <p> 1. Select the tense and number of questions </p>
-        <p> 2. Begin by tapping "Vamos!" to initiate the game</p>
+        <p> 2. Begin by tapping &quot;Vamos!&quot; to initiate the game</p>
         <p> 3. Input your answer </p>
         <p> 4. Tap the card to verify your answer</p>
         <p> 5. Tap again to proceed to the next verb</p>
-        <p>6. If you're unsure of the answer, tap &apos;Reveal Answer&apos;</p>
+        <p>6. If you're unsure of the answer, tap &quot;Reveal Answer&quot;</p>
         <Stack direction="row" spacing={1}>
           <p style={{ fontWeight: "bold" }}>TIP:</p>
           <p> To change the tense or number of questions, reset the game </p>

@@ -83,7 +83,7 @@ export default function Home() {
         <p> 3. Tap once more to continue to next verb</p>
         <p>
           {" "}
-          4. If you don't know the answer, tap the reveal answer on the top
+          4. If you don&apos;t know the answer, tap the reveal answer on the top
         </p>
       </Stack>
       <h4 style={{ marginTop: 35 }}> {conjugationType} Tense </h4>

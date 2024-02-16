@@ -207,47 +207,6 @@ export default function FlashCard({
           alignItems: "center",
         }}
       >
-        {!revealedAnswer && ready && (
-          <CardActionArea
-            sx={{
-              backgroundColor: "#e7e2b1",
-            }}
-            onClick={() => {
-              revealAnswer();
-            }}
-          >
-            <CardContent>
-              <Stack
-                spacing={1}
-                direction="row"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <LoopIcon
-                  sx={{
-                    color: "#8b0000",
-                    fontSize: 22,
-                    animation: isAnimating
-                      ? "spin 0.5s linear infinite"
-                      : "none",
-                    "@keyframes spin": {
-                      "0%": {
-                        transform: "rotate(360deg)",
-                      },
-                      "100%": {
-                        transform: "rotate(0deg)",
-                      },
-                    },
-                  }}
-                />
-                <Typography variant="h6" color="#8b0000">
-                  Reveal Answer
-                </Typography>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        )}
-
         <CardActionArea
           sx={{ width: 400, minHeight: 300 }}
           onClick={() => {
@@ -299,6 +258,47 @@ export default function FlashCard({
             </Stack>
           </CardContent>
         </CardActionArea>
+        {!revealedAnswer && ready && (
+          <CardActionArea
+            sx={{
+              backgroundColor: "#67B7D1",
+            }}
+            onClick={() => {
+              revealAnswer();
+            }}
+          >
+            <CardContent>
+              <Stack
+                spacing={1}
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <LoopIcon
+                  sx={{
+                    color: "#8b0000",
+                    fontSize: 22,
+                    animation: isAnimating
+                      ? "spin 0.5s linear infinite"
+                      : "none",
+                    "@keyframes spin": {
+                      "0%": {
+                        transform: "rotate(360deg)",
+                      },
+                      "100%": {
+                        transform: "rotate(0deg)",
+                      },
+                    },
+                  }}
+                />
+                <Typography variant="h6" color="#8b0000">
+                  Reveal Answer
+                </Typography>
+              </Stack>
+            </CardContent>
+          </CardActionArea>
+        )}
+
         <Stack direction={{ xs: "column", sm: "row" }} alignItems="center">
           <Typography variant="h5">{spanishPerson}</Typography>
           {ready && (

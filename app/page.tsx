@@ -75,7 +75,7 @@ export default function Home() {
       </Stack>
       <Stack
         direction="column"
-        style={{ marginLeft: 10, marginBottom: 80 }}
+        style={{ marginLeft: 10, marginBottom: 60 }}
         spacing={2}
         marginTop={5}
         alignItems="flex-start"
@@ -87,7 +87,7 @@ export default function Home() {
         <p> 1. Select the tense and number of questions </p>
         <p> 2. Begin by tapping &quot;Vamos!&quot; to initiate the game</p>
         <p> 3. Input your answer </p>
-        <p> 4. Tap the card to verify your answer</p>
+        <p> 4. Tap the card/press enter to verify your answer</p>
         <p> 5. Tap again to proceed to the next verb</p>
         <p>
           6. If you&apos;re unsure of the answer, tap &quot;Reveal Answer&quot;
@@ -97,7 +97,7 @@ export default function Home() {
           <p> To change the tense or number of questions, reset the game </p>
         </Stack>
       </Stack>
-      <Stack direction="row" spacing={1} marginBottom={5} marginTop={0}>
+      <Stack direction="row" spacing={1} marginBottom={5}>
         <AssignmentTurnedInIcon />
         <h4> Selected tense: </h4>
         <h4 style={{ color: "#a6122b" }}> {conjugationType} Tense </h4>
